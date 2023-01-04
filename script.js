@@ -24,10 +24,6 @@ class Line {
 
 }
 
-function stringify(samples) {
-  return samples.map(point => `(${point[0]},${point[1]})`).join(',')
-}
-
 class fImage {
 
   constructor (width, height, lines, samplesCount) {
