@@ -1,13 +1,13 @@
 
 module.exports = class {
 
-  constructor ([width, height], lines, samplesCount, rotatingVectorsCount) {
+  constructor ([width, height], lines, samplesCount, rotatingVectorsCount, precision) {
     this.width = width;
     this.height = height;
     this.center = [width / 2, height / 2];
     this.#validateLines(lines);
     this.samples = this.#createSamples(lines, samplesCount);
-    this.vactors = this.#computeVectors(this.samples, this.center, 2, rotatingVectorsCount);
+    // this.vectors = this.#computeVectors(this.samples, this.center, 2, rotatingVectorsCount, precision);
   }
 
   #validateLines(lines) {
@@ -43,15 +43,14 @@ module.exports = class {
     return total.map(coordinate => coordinate / samples.length);
   }
 
-
-
-  #computeVectors(samples, initialPoint, rotatingVectorsCount) {
+  #computeVectors(samples, initialPoint, rotatingVectorsCount, precision) {
+    const vectors = new Array(rotatingVectorsCount * 2 + 1);
+    for (const ix in vectors) vectors[ix] = [0, ix % 2 == 1 ? (ix + 1) / 2 : -ix / 2];
     const baseVector = this.#getAverageVector(samples).map((coordinate, index) => coordinate - initialPoint[index]);
-    const positiveFrequency = new Array(rotatingVectorsCount);
-    const negativeFrequency = new Array(rotatingVectorsCount);
-    var currentIterationSamples = samples.map(point => [point[0] - baseVector[0], point[1] - baseVector[1]]);
+    const rotation = Math.PI * 2 / precision;
+    var currentIterationSamples = [...samples];
     for (var iteration = 0; iteration < rotatingVectorsCount; iteration++) {
-      positiveFrequency[iteration] = this.#getAverageVector(currentIterationSamples);
+      const vector = vectors[iteration];
       
     }
   }
