@@ -1,0 +1,19 @@
+{
+  "name": "fourier-animations",
+  "version": "1.0.0",
+  "description": "Web app to animate SVG files using vectors in a 2d plane.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smunteanu6/fourier-animations.git"
+  },
+  "author": "smunteanu6",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smunteanu6/fourier-animations/issues"
+  },
+  "homepage": "https://github.com/smunteanu6/fourier-animations#readme"
+}
