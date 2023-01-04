@@ -13,7 +13,7 @@ class Line {
 
   // The point at distance d from (x1, y1), directed to (x2, y2)
   atDistance(d) {
-    if (this.x1 == this.x2) return [this.x1, this.y1 + d];
+    if (this.x1 == this.x2) return [this.x1, this.y1 + (this.y1 < this.y2 ? d : -d)];
     // w = change in x, h = change in y
     // w^2+h^2=d^2   =>   w^2+(mw)^2-d^2   =   (m^2+1)*w^2-d^2   =   0
     // To solve the quadratic: a = m^2+1, b = 0, c = -d^2
