@@ -16,7 +16,7 @@ class Line {
     if (this.x1 == this.x2) return [this.x1, this.y1 + (this.y1 < this.y2 ? d : -d)];
     // w = change in x, h = change in y
     // w^2+h^2=d^2   =>   w^2+(mw)^2-d^2   =   (m^2+1)*w^2-d^2   =   0
-    // To solve the quadratic: a = m^2+1, b = 0, c = -d^2
+    // To solve for w: a = m^2+1, b = 0, c = -d^2
     // In this case, w = (-b+sqrt(b^2-4ac))/2a   =   sqrt(-4ac)/2a   =   sqrt(4ad^2)/2a   =   2d*sqrt(a)/2a   =   d/sqrt(a) =   d/sqrt(m^2+1)
     const x = this.x1 + (d / Math.sqrt(this.m * this.m + 1)) * (this.x1 < this.x2 ? 1 : -1);
     return [x, this.m * x + this.b];
@@ -24,10 +24,10 @@ class Line {
 
 }
 
+
 class fImage {
 
   constructor (width, height, lines, samplesCount) {
-    
     this.width = width;
     this.height = height;
     this.#validateLines(lines);
@@ -61,7 +61,9 @@ class fImage {
     }
     return samples;
   }
+
 }
+
 
 class fCanvas {
 
