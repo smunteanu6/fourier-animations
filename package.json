@@ -4,7 +4,7 @@
   "description": "Web app to animate SVG files using vectors in a 2d plane.",
   "main": "index.js",
   "scripts": {
-    "test": "node script.js"
+    "build": "npx webpack"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/smunteanu6/fourier-animations/issues"
   },
-  "homepage": "https://github.com/smunteanu6/fourier-animations#readme"
+  "homepage": "https://github.com/smunteanu6/fourier-animations#readme",
+  "devDependencies": {
+    "@webpack-cli/generators": "^3.0.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
 }

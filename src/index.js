@@ -1,4 +1,3 @@
-
 class Line {
   
   constructor (x1, y1, x2, y2) {
@@ -23,7 +22,6 @@ class Line {
   }
 
 }
-
 
 class fImage {
 
@@ -69,14 +67,16 @@ class fImage {
     return total.map(coordinate => coordinate / samples.length);
   }
 
+
+
   #computeVectors(samples, initialPoint, rotatingVectorsCount) {
     const baseVector = this.#getAverageVector(samples).map((coordinate, index) => coordinate - initialPoint[index]);
-    console.log(baseVector)
     const positiveFrequency = new Array(rotatingVectorsCount);
     const negativeFrequency = new Array(rotatingVectorsCount);
     var currentIterationSamples = samples.map(point => [point[0] - baseVector[0], point[1] - baseVector[1]]);
     for (var iteration = 0; iteration < rotatingVectorsCount; iteration++) {
-      positiveFrequency[iteration] = this.#getAverageVector(currentIterationSamples)
+      positiveFrequency[iteration] = this.#getAverageVector(currentIterationSamples);
+      
     }
   }
 
