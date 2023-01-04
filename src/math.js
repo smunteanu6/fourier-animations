@@ -1,5 +1,5 @@
 
-module.exports.Segment = class {
+class Segment {
   
   constructor (x1, y1, x2, y2) {
     this.x1 = x1;
@@ -19,8 +19,15 @@ module.exports.Segment = class {
     // To solve for w: a = m^2+1, b = 0, c = -d^2
     // In this case, w = (-b+sqrt(b^2-4ac))/2a   =   sqrt(-4ac)/2a   =   sqrt(4ad^2)/2a   =   2d*sqrt(a)/2a   =   d/sqrt(a) =   d/sqrt(m^2+1)
     const x = this.x1 + (d / Math.sqrt(this.m * this.m + 1)) * (this.x1 < this.x2 ? 1 : -1);
-    return [x, this.m * x + this.b];
+    return [x, evalX(x)];
+  }
+
+  evalX(x) {
+    return this.m * x + this.b;
   }
 
 }
 
+module.exports = {
+  Segment
+}
