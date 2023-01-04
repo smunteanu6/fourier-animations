@@ -1,6 +1,7 @@
-const math = require('./math');
-const fImage = require('./fimage');
+const Geometry = require('./Geometry');
+const FImage = require('./FImage');
 const Canvas = require('./Canvas');
+const Animations = require('./Animations');
 
 const main = (async () => {
   
@@ -12,13 +13,12 @@ const main = (async () => {
 
   const linesData = [[4, 4, 200, 200], [200, 200, 280, 160], [280, 160, 4, 4]];
 
-  const lines = linesData.map(data => new math.Segment(data[0], data[1], data[2], data[3]));
+  const lines = linesData.map(data => new Geometry.Segment(data[0], data[1], data[2], data[3]));
 
-  const image = new fImage(size, lines);
+  const image = new FImage(size, lines);
 
   const canvas = new Canvas(size, dom.animationCanvas);
 
-  
   for (const sample of image.samples) {
     canvas.ctx.fillRect(sample[0], sample[1], 1, 1);
   }
