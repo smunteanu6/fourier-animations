@@ -1,19 +1,22 @@
 
-function render(canvas, vectors, position, t) {
-  canvas.ctx.beginPath();
-  canvas.ctx.moveTo(...position);
+async function render(permanentCtx, temporaryCtx, vectors, posX, posY, t) {
+  temporaryCtx.strokeStyle = '#0000';
+  temporaryCtx.stroke();
+  temporaryCtx.beginPath();
+  temporaryCtx.moveTo(posX, posY);
   for (const vector of vectors) {
-    position[0] += Math.cos(t * vector.frequency) * vector.magnitude;
-    position[1] += Math.sin(t * vector.frequency) * vector.magnitude;
-    canvas.ctx.lineTo(...position);
+    posX += Math.cos(t * vector.frequency) * vector.magnitude;
+    posY += Math.sin(t * vector.frequency) * vector.magnitude;
+    temporaryCtx.lineTo(posX, posY);
   }
-  canvas.drawPoint(...position, 2);
-  canvas.reload();
-  canvas.ctx.stroke();
+  permanentCtx.fillRect(posX - 1, posY - 1, 3, 3);
+  temporaryCtx.strokeStyle = '#000F';
+  temporaryCtx.stroke();
 }
 
-function animateVectorsOnCanvas(canvas, vectors, precision) {
-  
+function animateVectorsOnCanvas(permanentCtx, temporaryCtx, vectors, posX, posY, precision = 50, intervalLength = 100) {
+  var t = 0;
+  setInterval(() => render(permanentCtx, temporaryCtx, vectors, posX, posY, t++ / precision), intervalLength);
 }
 
 module.exports = {
