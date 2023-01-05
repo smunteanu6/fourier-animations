@@ -19,7 +19,7 @@ class Segment {
     // To solve for w: a = m^2+1, b = 0, c = -d^2
     // In this case, w = (-b+sqrt(b^2-4ac))/2a   =   sqrt(-4ac)/2a   =   sqrt(4ad^2)/2a   =   2d*sqrt(a)/2a   =   d/sqrt(a) =   d/sqrt(m^2+1)
     const x = this.x1 + (d / Math.sqrt(this.m * this.m + 1)) * (this.x1 < this.x2 ? 1 : -1);
-    return [x, evalX(x)];
+    return [x, this.evalX(x)];
   }
 
   evalX(x) {
@@ -28,6 +28,20 @@ class Segment {
 
 }
 
+class RotatingVector {
+
+  constructor (magnitude, frequency) {
+    this.magnitude = magnitude;
+    this.frequency = frequency;
+  }
+
+  evalT(t) {
+    return [Math.cos(this.frequency * t) * this.magnitude, Math.sin(this.frequency * t) * this.magnitude];
+  }
+
+}
+
 module.exports = {
-  Segment
+  Segment,
+  RotatingVector
 }
