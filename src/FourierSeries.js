@@ -1,11 +1,9 @@
 const { RotatingVector } = require('./Geometry');
 
-function validateDrawing(lines, width, height, startX, startY) {
-  if (!(0 <= startX && startX < width && 0 <= startY && startY <= height)) throw new Error('Starting point coordinates out of bound');
+function validateDrawing(lines) {
   for (const ix in lines) {
     const a = lines[ix], b = lines[(ix + 1) % lines.length];
     if (!(a.x2 === b.x1 && a.y2 === b.y1)) throw new Error('Image formed is not a continuous line');
-    if (!(0 <= a.x1 && a.x1 < width && 0 <= a.y1 && a.y1 <= height)) throw new Error ('Segment coordinates out of bound');
   }
 }
 
@@ -49,8 +47,8 @@ function computeVectors(samples, precision) {
   });
 }
 
-function computeApproximation(lines, samplesCount, precision, width, height, startX = width / 2, startY = height / 2) {
-  validateDrawing(lines, width, height, startX, startY);
+function computeApproximation(lines, samplesCount, precision, startX = width / 2, startY = height / 2) {
+  validateDrawing(lines);
   const samples = getSamples(lines, samplesCount);
   samples.forEach(sample => { sample[0] -= startX; sample[1] -= startY; });
   return computeVectors(samples, precision);
