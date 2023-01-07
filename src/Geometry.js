@@ -1,5 +1,5 @@
 
-class Segment {
+class Vector {
   
   constructor (x1, y1, x2, y2) {
     this.x1 = x1;
@@ -19,10 +19,10 @@ class Segment {
     // To solve for w: a = m^2+1, b = 0, c = -d^2
     // In this case, w = (-b+sqrt(b^2-4ac))/2a   =   sqrt(-4ac)/2a   =   sqrt(4ad^2)/2a   =   2d*sqrt(a)/2a   =   d/sqrt(a) =   d/sqrt(m^2+1)
     const x = this.x1 + (d / Math.sqrt(this.m * this.m + 1)) * (this.x1 < this.x2 ? 1 : -1);
-    return [x, this.evalX(x)];
+    return [x, this.eval(x)];
   }
 
-  evalX(x) {
+  eval(x) {
     return this.m * x + this.b;
   }
 
@@ -30,18 +30,21 @@ class Segment {
 
 class RotatingVector {
 
-  constructor (magnitude, frequency) {
-    this.magnitude = magnitude;
-    this.frequency = frequency;
+  constructor (u, v, f) {
+    this.u = u;
+    this.v = v;
+    this.f = f;
   }
 
-  evalT(t) {
-    return [Math.cos(this.frequency * t) * this.magnitude, Math.sin(this.frequency * t) * this.magnitude];
+  eval(t) {
+    const cost = Math.cos(t * this.f);
+    const sint = Math.sin(t * this.f);
+    return new RotatingVector(this.u * cost - this.v * sint, this.u * sint + this.v * cost, this.f);
   }
 
 }
 
 module.exports = {
-  Segment,
+  Vector,
   RotatingVector
 }
