@@ -33,9 +33,9 @@ function getAverage(samples, f) {
   const total = [0, 0];
   samples.forEach((sample, sampleIndex) => {
     const t = sampleIndex / samples.length;
-    rotate(sample, t * -f * (Math.PI * 2)).forEach((value, index) => {
-      total[index] += value / samples.length;
-    });
+    const rotation = new RotatingVector(...sample, -f).eval(t * Math.PI * 2);
+    total[0] += rotation.u / samples.length;
+    total[1] += rotation.v / samples.length;
   });
   return total;
 }
