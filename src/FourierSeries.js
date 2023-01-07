@@ -47,7 +47,7 @@ function computeVectors(samples, precision) {
   });
 }
 
-function computeApproximation(lines, samplesCount, precision, startX = width / 2, startY = height / 2) {
+function computeApproximation(lines, samplesCount, precision, startX = 0, startY = 0) {
   validateDrawing(lines);
   const samples = getSamples(lines, samplesCount);
   samples.forEach(sample => { sample[0] -= startX; sample[1] -= startY; });
