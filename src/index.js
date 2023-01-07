@@ -1,5 +1,5 @@
 const Geometry = require('./Geometry');
-const FImage = require('./FourierSeries');
+const FourierSeries = require('./FourierSeries');
 const Animations = require('./Animations');
 
 function createContext(canvasId, width, height, options) {
@@ -11,34 +11,33 @@ function createContext(canvasId, width, height, options) {
 
 const main = (async () => {
 
-  const [width, height] = [500, 500];
-
+  const [width, height] = [600, 600];
+  
   const permanentCtx = createContext('permanent-canvas', width, height, { alpha: false });
   const temporaryCtx = createContext('temporary-canvas', width, height, { alpha: true });
   temporaryCtx.globalCompositeOperation = 'copy';
   
   permanentCtx.fillStyle = '#FFF';
   permanentCtx.fillRect(0, 0, width, height);
-  permanentCtx.fillStyle = '#000';
+  permanentCtx.fillStyle = '#F00';
 
   temporaryCtx.fillStyle = '#0000';
   temporaryCtx.fillRect(0, 0, width, height);
 
-  // const linesData = [[4, 4, 200, 200], [200, 200, 280, 160], [280, 160, 4, 4]];
+  var linesData = [[4, 4, 200, 200], [200, 200, 280, 160], [280, 160, 4, 4]];
+  linesData = linesData.map(arr => arr.map(el => el * 2))
 
-  // const lines = linesData.map(data => new Geometry.Segment(data[0], data[1], data[2], data[3]));
+  const lines = linesData.map(data => new Geometry.Vector(data[0], data[1], data[2], data[3]));
 
-  // const image = new FImage(size, lines);
-
-  // for (const sample of image.samples) {
-  //   canvas.ctx.fillRect(sample[0], sample[1], 1, 1);
-  // }
+  for (const line of lines) {
+    permanentCtx.beginPath();
+    permanentCtx.moveTo(line.x1, line.y1);
+    permanentCtx.lineTo(line.x2, line.y2);
+    permanentCtx.stroke();
+  }
   
-  const rng = (min, max) => Math.floor(Math.random() * (max - min)) + min;
-
-  const vectorData = [[100, 3], [30, 17]];
-  const vectors = vectorData.map(data => new Geometry.RotatingVector(data[0], data[1]));
-
-  // Animations.animateVectorsOnCanvas(permanentCtx, temporaryCtx, vectors, width / 2, height / 2, 80, 20);
+  const vectors = FourierSeries.computeApproximation(lines, 1000, 5, width / 2, height / 2);
+  
+  Animations.animateVectorsOnCanvas(permanentCtx, temporaryCtx, vectors, width / 2, height / 2, 500, 50);
 
 })();
