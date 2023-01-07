@@ -1,15 +1,13 @@
-
-async function render(permanentCtx, temporaryCtx, vectors, posX, posY, t) {
+function render(permanentCtx, temporaryCtx, vectors, posX, posY, t) {
   temporaryCtx.strokeStyle = '#0000';
   temporaryCtx.stroke();
   temporaryCtx.beginPath();
   temporaryCtx.moveTo(posX, posY);
   for (const vector of vectors) {
-    posX += Math.cos(t * vector.frequency) * vector.magnitude;
-    posY += Math.sin(t * vector.frequency) * vector.magnitude;
-    temporaryCtx.lineTo(posX, posY);
+    const add = vector.eval(t * 2 * Math.PI);
+    temporaryCtx.lineTo(posX += add.u, posY += add.v);
   }
-  permanentCtx.fillRect(posX - 1, posY - 1, 3, 3);
+  permanentCtx.fillRect(posX - 1, posY - 1, 2, 2);
   temporaryCtx.strokeStyle = '#000F';
   temporaryCtx.stroke();
 }
