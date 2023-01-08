@@ -4,7 +4,7 @@ function render(permanentCtx, temporaryCtx, vectors, posX, posY, t) {
   temporaryCtx.beginPath();
   temporaryCtx.moveTo(posX, posY);
   for (const vector of vectors) {
-    const add = vector.eval(t * 2 * Math.PI);
+    const add = vector.eval(t * Math.PI * 2);
     temporaryCtx.lineTo(posX += add.u, posY += add.v);
   }
   permanentCtx.fillRect(posX - 1, posY - 1, 2, 2);
