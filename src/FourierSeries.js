@@ -1,7 +1,7 @@
 const { RotatingVector } = require('./Geometry');
 
 function validateDrawing(lines) {
-  for (const ix in lines) {
+  for (var ix = 0; ix < lines.length; ix++) {
     const a = lines[ix], b = lines[(ix + 1) % lines.length];
     if (!(a.x2 === b.x1 && a.y2 === b.y1)) throw new Error('Image formed is not a continuous line');
   }
